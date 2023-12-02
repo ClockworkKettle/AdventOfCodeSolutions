@@ -3,24 +3,51 @@
 #include <vector>
 #include <string>
 
-
-int main()
+std::vector<std::string> readfile(std::string filepath)
 {
-    std::string filepath = "c:\\Users\\timot\\Desktop\\AdventOfCode\\Day1\\input.txt";
-    std::ifstream ifile(filepath);
     std::vector<std::string> filecontent;
+    std::ifstream ifile(filepath);
     if (ifile.is_open())
     {
         std::string line;
-        std::vector<string> string_nums = {"one","two","three","four","five","six","seven","eight","nine","ten"};
         while (std::getline(ifile, line))
         {
             filecontent.push_back(line);
         }
     }
     ifile.close();
-    std::vector<std::string>::iterator pos = filecontent.begin();
-    int accumulator=0;
+    return filecontent;
+}
+std::string parse_substring(std::string input, std::string num, std::string num_parsed)
+{
+    if(input.find(num) != std::string::npos)
+    {
+        input.replace(input.find(num), num.length(), num_parsed);
+        input = parse_substring(input, num, num_parsed);
+    }
+    return input;
+}
+int main()
+{
+    std::vector<std::string> unparsed_filecontent = readfile("c:\\Users\\timot\\Desktop\\AdventOfCode\\Day1\\input.txt");
+    std::vector<std::string>::iterator pos = unparsed_filecontent.begin();
+    std::vector<std::string> string_nums = {"one", "o1e", "two", "t2o", "three", "t3e", "four", "f4r", "five", "f5e", "six",
+    "s6x", "seven", "s7n", "eight", "e8t", "nine", "n9e"};
+    std::vector<std::string> filecontent;
+    while (pos < unparsed_filecontent.end())
+    {
+        std::string temp= *pos;
+        for (int i=0; i<string_nums.size(); i+=2)
+        {
+            temp = parse_substring(temp, string_nums[i], string_nums[i+1]);
+        }
+        filecontent.push_back(temp); 
+        pos++;
+    }
+
+
+    pos = filecontent.begin();
+    int accumulator=0; 
     int first;
     int last;
     bool firstfound = false;
