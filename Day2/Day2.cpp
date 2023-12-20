@@ -24,10 +24,9 @@ std::vector<std::string> split_string(std::string input, std::string delimeter)
     }
     return tokens;
 }
-int main()
+void tester(std::string input, std::string delimeter)
 {
-    std::string test = ",Testing,Commas,as,Delimeters,";
-    std::vector<std::string> result = split_string(test, ",");
+    std::vector<std::string> result = split_string(input, delimeter);
     int i =0;
     std::cout<< result.size()<<std::endl;
     for (std::vector<std::string>::iterator pos = result.begin(); pos<result.end(); pos++)
@@ -35,4 +34,11 @@ int main()
         std::cout<<i << ": " << *pos <<std::endl;
         i++;
     }
+
+}
+int main()
+{
+    tester(",testing,commas,as,delimeters,", ",");
+    tester("Imagine a world where I could write a sentence and it would give me back the words", " ");
+    tester("does the . work as a delimeter", ".");
 }
