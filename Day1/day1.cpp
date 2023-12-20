@@ -29,7 +29,7 @@ std::string parse_substring(std::string input, std::string num, std::string num_
 }
 int main()
 {
-    std::vector<std::string> unparsed_filecontent = readfile("c:\\Users\\timot\\Desktop\\AdventOfCode\\Day1\\input.txt");
+    std::vector<std::string> unparsed_filecontent = readfile("/home/tim/Desktop/MRes/AdventOfCodeSolutions/Day1/input.txt");
     std::vector<std::string>::iterator pos = unparsed_filecontent.begin();
     std::vector<std::string> string_nums = {"one", "o1e", "two", "t2o", "three", "t3e", "four", "f4r", "five", "f5e", "six",
     "s6x", "seven", "s7n", "eight", "e8t", "nine", "n9e"};
