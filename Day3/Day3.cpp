@@ -51,7 +51,6 @@ int main()
         {
             if (isdigit(*cpos))
             {
-                std::cout << "DIGIT: " << *cpos << " | ";
                 std::string::iterator start_num = cpos-1;
                 std::string num ="";
                 while (isdigit(*cpos))
@@ -59,25 +58,18 @@ int main()
                     num+= *cpos; 
                     *cpos++;
                 }
-                std::cout << "Full_Num: " << num << std::endl; 
                 std::string::iterator end_num = cpos+1;
 
                 std::string test_str = std::string(start_num, end_num);
                 int start_index = start_num-targetline.begin();
                 int end_index = end_num-targetline.begin();
-                std::cout << "TEST GRID: " << std::endl;
-                std::cout << std::string(prevline.begin()+start_index, prevline.begin()+end_index) << std::endl;
-                std::cout << std::string(start_num, end_num) << std::endl;
-                std::cout << std::string(nextline.begin()+start_index, nextline.begin()+end_index) << std::endl;
-                test_str = std::string(prevline.begin()+start_index, prevline.begin()+end_index) + *start_num + *(end_num-1) + std::string(nextline.begin()+start_index, nextline.begin()+end_index);
-                std::cout << "TEST_STR: " <<test_str << " | ";
+                test_str = std::string(prevline.begin()+start_index, prevline.begin()+end_index) + std::string(start_num,  end_num) + std::string(nextline.begin()+start_index, nextline.begin()+end_index);
                 if (part_num(test_str))
                 {
-                    std::cout <<"TRUE" << std::endl;
-                        part_nums.push_back(num);
+                    part_nums.push_back(num);
                 }
                 else{
-                    std::cout << "FALSE" << std::endl;
+
                 }
             } 
         }
@@ -85,8 +77,12 @@ int main()
     for (pos=part_nums.begin(); pos<part_nums.end(); pos++)
     {
         sum += std::stoi(*pos);
-        std::cout << "STRING: " << *pos << " | INT: " << std::stoi(*pos)<< "| SUM " << sum <<std::endl;
     }
     std::cout << "Sum of all part nums: " << sum << std::endl;
+
+    for (std::vector<std::string>::iterator nloc = raw_input.begin()+1; nloc<raw_input.end()-1; nloc++)
+    {
+        
+    }
 
 }
