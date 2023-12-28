@@ -61,7 +61,7 @@ int main()
                 }
                 std::cout << "Full_Num: " << num << std::endl; 
                 std::string::iterator end_num = cpos+1;
-                
+
                 std::string test_str = std::string(start_num, end_num);
                 int start_index = start_num-targetline.begin();
                 int end_index = end_num-targetline.begin();
@@ -74,10 +74,7 @@ int main()
                 if (part_num(test_str))
                 {
                     std::cout <<"TRUE" << std::endl;
-                    //if(std::find(part_nums.begin(), part_nums.end(), num) == part_nums.end())
-                    //{
                         part_nums.push_back(num);
-                    //}
                 }
                 else{
                     std::cout << "FALSE" << std::endl;
