@@ -5,6 +5,13 @@
 #include <algorithm>
 #include <iterator>
 
+struct scratchcard
+{
+    int game_id;
+    std::vector<int> winning_nums;
+    std::vector<int> player_nums;
+    int matching_nums;
+};
 std::vector<std::string> readfile(std::string filepath)
 {
     std::vector<std::string> filecontent;
@@ -61,12 +68,24 @@ bool found_duplicate(int val, std::vector<int> vec)
     }
     return false;
 }
-struct scratchcard
+int count_cards(std::vector<scratchcard> &cardlist, std::vector<scratchcard>::iterator cpos)
 {
-    int game_id;
-    std::vector<int> winning_nums;
-    std::vector<int> player_nums;
-};
+    int matching_nums = (*cpos).matching_nums;
+    int total_cards =1;
+    if (matching_nums == 0)
+    {
+        return 1;
+    }
+    else {
+        while (matching_nums>0)
+        {
+            *cpos++;
+            matching_nums -=1;
+            total_cards +=count_cards(cardlist, cpos);
+        }
+    }
+    return total_cards;
+}
 int main()
 {
     int total_score=0;
@@ -82,6 +101,7 @@ int main()
         s.game_id=game_id;
         s.winning_nums = strvec2intvec (split_string(std::string(winning_nums.begin()+1, winning_nums.end()), " "));
         s.player_nums = strvec2intvec(split_string(std::string(player_nums.begin()+1, player_nums.end()), " "));
+        s.matching_nums =1;
         parsed_input.push_back(s);
     }
     for (std::vector<scratchcard>::iterator pos = parsed_input.begin(); pos<parsed_input.end(); pos++)
@@ -98,6 +118,25 @@ int main()
         if (temp_score>0.5) total_score += temp_score;    
     }
     std::cout << total_score << std::endl;
+    std::vector<scratchcard>::iterator npos = parsed_input.begin(); 
+    for (std::vector<scratchcard>::iterator pos = parsed_input.begin(); pos<parsed_input.end(); pos++)
+    {
+        int score=0;
+        scratchcard &cur = *pos;
+        for (std::vector<int>::iterator tpos = cur.player_nums.begin();  tpos<cur.player_nums.end(); tpos++)
+        {
+            if (found_duplicate (*tpos, cur.winning_nums))
+            {
+                score+=1;
+            }
+        }    
+        cur.matching_nums=score;
+    }
+    total_score =0;
+    for (std::vector<scratchcard>::iterator pos = parsed_input.begin(); pos<parsed_input.end(); pos++)
+    {
+        total_score += count_cards(parsed_input, pos);
+    }
+    std::cout << "TOTAL SCORE: " << total_score << std::endl;
 
-    
 }
