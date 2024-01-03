@@ -45,26 +45,17 @@ std::vector<std::string> split_string(std::string input, std::string delimeter)
     {
         pos = input.begin()+input.find(delimeter)+1;
         std::string token = std::string(input.begin(), pos-1);
-        if (token!=delimeter && token != " " && token != "")
-        {
-            tokens.push_back(token);
-        }
+        if (token!=delimeter && token != " " && token != "")tokens.push_back(token);
          input = std::string(pos, input.end());
     }
-    if (input.size() >0)
-    {
-        tokens.push_back(input);
-    }
+    if (input.size() >0) tokens.push_back(input);
     return tokens;
 }
 bool found_duplicate(int val, std::vector<int> vec)
 {
     for (std::vector<int>::iterator pos = vec.begin(); pos < vec.end(); pos++)
     {
-        if (val == *pos)
-        {
-            return true;
-        }
+        if (val == *pos)return true;
     }
     return false;
 }
@@ -72,10 +63,7 @@ int count_cards(std::vector<scratchcard> &cardlist, std::vector<scratchcard>::it
 {
     int matching_nums = (*cpos).matching_nums;
     int total_cards =1;
-    if (matching_nums == 0)
-    {
-        return 1;
-    }
+    if (matching_nums == 0) return 1;
     else {
         while (matching_nums>0)
         {
@@ -110,10 +98,7 @@ int main()
         scratchcard cur = *pos;
         for (std::vector<int>::iterator tpos = cur.player_nums.begin();  tpos<cur.player_nums.end(); tpos++)
         {
-            if (found_duplicate (*tpos, cur.winning_nums))
-            {
-                temp_score*=2;
-            }
+            if (found_duplicate (*tpos, cur.winning_nums))temp_score*=2;
         }    
         if (temp_score>0.5) total_score += temp_score;    
     }
@@ -125,10 +110,7 @@ int main()
         scratchcard &cur = *pos;
         for (std::vector<int>::iterator tpos = cur.player_nums.begin();  tpos<cur.player_nums.end(); tpos++)
         {
-            if (found_duplicate (*tpos, cur.winning_nums))
-            {
-                score+=1;
-            }
+            if (found_duplicate (*tpos, cur.winning_nums))score+=1;
         }    
         cur.matching_nums=score;
     }
